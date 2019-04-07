@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebApp.Models.PontuacaoModel>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h2>Lançamentos</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataJogo)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.QuantidadePontos)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataJogo)
+                </td>
+                <td class="text-center">
+                     @Html.DisplayFor(modelItem => item.QuantidadePontos)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

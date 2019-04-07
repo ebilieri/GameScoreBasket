@@ -1,0 +1,33 @@
+﻿@model WebApp.Models.PontuacaoModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Pontos</h2>
+
+<h3>Deseja realmente excluir esse Lançamento?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DataJogo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataJogo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantidadePontos)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.QuantidadePontos)
+        </dd>        
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Ver Resultados</a>
+    </form>
+</div>

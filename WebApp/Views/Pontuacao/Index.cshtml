@@ -1,0 +1,51 @@
+﻿
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6"><h2>Resultados</h2></div>
+        <div class="col-lg-3 text-right">
+        <br />
+        @ViewBag.PeriodoTemporada</div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">Jogos disputados</div>
+        <div class="col-lg-3 text-right" >@ViewBag.JogosDisputados</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-lg-6">Total de pontos marcados na temporada</div>
+        <div class="col-lg-3 text-right">@ViewBag.TotalPontosTemporada</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-lg-6">Média de pontos por jogo</div>
+        <div class="col-lg-3 text-right">@ViewBag.MediaPontos</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-lg-6">Maior pontuação em um jogo</div>
+        <div class="col-lg-3 text-right">@ViewBag.MaiorPontucao</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-lg-6">Menor pontuação em um jogo</div>
+        <div class="col-lg-3 text-right">@ViewBag.MenorPontuacao</div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-lg-6">Quantidade de vezes que bateu o próprio recorde</div>
+        <div class="col-lg-3 text-right">@ViewBag.QuantidadesVezesBateuRecord</div>
+    </div>
+    <hr />
+</div>
+<div>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>*@
+</div>
