@@ -19,6 +19,9 @@ namespace GameScore.Services
             if (pontuacao.DataJogo > DateTime.Now.Date)
                 throw new Exception("A data do jogo não pode ser maior que a data de hoje");
 
+            if (pontuacao.QuantidadePontos < 0)
+                throw new Exception("A quantidade de pontos de ser maior ou igual a zero");
+
             _pontuacaoRepository.Salvar(pontuacao);
         }
 
