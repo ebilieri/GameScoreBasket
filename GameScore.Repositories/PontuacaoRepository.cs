@@ -34,8 +34,6 @@ namespace GameScore.Repositories
             {
                 return "Nenhum resultado lançado.";
             }
-
-
         }
 
         public int TotalDeJogosDisputados(Guid userId)
@@ -71,27 +69,23 @@ namespace GameScore.Repositories
 
         public int QuantidadeDeVezesBateuRecorde(Guid userId)
         {
-            try
+            if (TotalDeJogosDisputados(userId) > 1)
             {
-                if (TotalDeJogosDisputados(userId) > 0)
-                {
-                    int record = _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
-                    .Where(p => p.UserId == userId && p.QuantidadePontos > 0).FirstOrDefault().QuantidadePontos;
+                int record = _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
+                .Where(p => p.UserId == userId && p.QuantidadePontos > 0).FirstOrDefault().QuantidadePontos;
 
-                    var recordAtual = _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
-                    .Where(p => p.UserId == userId && p.QuantidadePontos > record).FirstOrDefault();
+                var recordAtual = _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
+                .Where(p => p.UserId == userId && p.QuantidadePontos > record).FirstOrDefault();
 
-                    if (recordAtual != null)
-                        return _gameScoreDBContext.Pontuacao
-                            .Where(p => p.UserId == userId && p.QuantidadePontos >= recordAtual.QuantidadePontos)
-                            .OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
-                            .Select(p => p.QuantidadePontos).Distinct().ToList().Count();
-                    else
-                        return 0;
-                }
-                else return 0;
+                if (recordAtual != null)
+                    return _gameScoreDBContext.Pontuacao
+                        .Where(p => p.UserId == userId && p.QuantidadePontos >= recordAtual.QuantidadePontos)
+                        .OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
+                        .Select(p => p.QuantidadePontos).Distinct().ToList().Count();
+                else
+                    return 0;
             }
-            catch { return 0; }
+            else return 0;
         }
 
         public IList<Pontuacao> List(Guid userId)
