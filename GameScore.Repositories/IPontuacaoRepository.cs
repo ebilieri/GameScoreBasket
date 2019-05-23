@@ -9,8 +9,11 @@ namespace GameScore.Repositories
         int MaiorPontuacaoEmUmJogo(Guid userId);
         double MediaDePontosPorJogo(Guid userId);
         int MenorPontuacaoEmUmJogo(Guid userId);
-        string PeriodoTemporada(Guid userId);
-        int QuantidadeDeVezesBateuRecorde(Guid userId);
+        Pontuacao PeriodoTemporadaInicio(Guid userId);
+        Pontuacao PeriodoTemporadaFim(Guid userId);
+        int Record(Guid userId);
+        Pontuacao RecordAtual(Guid userId, int record);
+        int QuantidadeDeVezesBateuRecorde(Guid userId, Pontuacao recordAtual);
         void Salvar(Pontuacao pontuacao);
         int TotalDeJogosDisputados(Guid userId);
         int TotalDePontosMarcadosNaTemporado(Guid userId);

@@ -20,20 +20,14 @@ namespace GameScore.Repositories
             _gameScoreDBContext.SaveChanges();
         }
 
-        public string PeriodoTemporada(Guid userId)
+        public Pontuacao PeriodoTemporadaInicio(Guid userId)
         {
-            var dataInicio = _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).FirstOrDefault(p => p.UserId == userId);
+            return _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).FirstOrDefault(p => p.UserId == userId);
+        }
 
-            if (dataInicio != null)
-            {
-                var dataFim = _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).LastOrDefault(p => p.UserId == userId);
-
-                return $"{dataInicio.DataJogo.ToShortDateString()} até {dataFim.DataJogo.ToShortDateString()}";
-            }
-            else
-            {
-                return "Nenhum resultado lançado.";
-            }
+        public Pontuacao PeriodoTemporadaFim(Guid userId)
+        {
+            return _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).LastOrDefault(p => p.UserId == userId);
         }
 
         public int TotalDeJogosDisputados(Guid userId)
@@ -67,23 +61,30 @@ namespace GameScore.Repositories
             else return 0;
         }
 
-        public int QuantidadeDeVezesBateuRecorde(Guid userId)
+        public int Record(Guid userId)
         {
             if (TotalDeJogosDisputados(userId) > 1)
             {
-                int record = _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
+                return _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
                 .Where(p => p.UserId == userId && p.QuantidadePontos > 0).FirstOrDefault().QuantidadePontos;
+            }
+            else return 0;
+        }
 
-                var recordAtual = _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
-                .Where(p => p.UserId == userId && p.QuantidadePontos > record).FirstOrDefault();
+        public Pontuacao RecordAtual(Guid userId, int record)
+        {
+            return _gameScoreDBContext.Pontuacao.OrderBy(p => p.DataJogo)
+            .Where(p => p.UserId == userId && p.QuantidadePontos > record).FirstOrDefault();
+        }
 
-                if (recordAtual != null)
-                    return _gameScoreDBContext.Pontuacao
-                        .Where(p => p.UserId == userId && p.QuantidadePontos >= recordAtual.QuantidadePontos)
-                        .OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
-                        .Select(p => p.QuantidadePontos).Distinct().ToList().Count();
-                else
-                    return 0;
+        public int QuantidadeDeVezesBateuRecorde(Guid userId, Pontuacao recordAtual)
+        {
+            if (TotalDeJogosDisputados(userId) > 0)
+            {
+                return _gameScoreDBContext.Pontuacao
+                .Where(p => p.UserId == userId && p.QuantidadePontos >= recordAtual.QuantidadePontos)
+                .OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
+                .Select(p => p.QuantidadePontos).Distinct().ToList().Count();
             }
             else return 0;
         }

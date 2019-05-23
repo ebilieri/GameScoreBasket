@@ -26,8 +26,19 @@ namespace GameScore.Services
         }
 
         public string PeriodoTemporada(Guid userId)
-        {
-            return _pontuacaoRepository.PeriodoTemporada(userId);
+        {            
+            var dataInicio = _pontuacaoRepository.PeriodoTemporadaInicio(userId);
+
+            if (dataInicio != null)
+            {
+                var dataFim = _pontuacaoRepository.PeriodoTemporadaFim(userId);
+
+                return $"{dataInicio.DataJogo.ToShortDateString()} até {dataFim.DataJogo.ToShortDateString()}";
+            }
+            else
+            {
+                return "Nenhum resultado lançado.";
+            }
         }
 
         public int TotalDeJogosDisputados(Guid userId)
@@ -56,8 +67,12 @@ namespace GameScore.Services
         }
 
         public int QuantidadeDeVezesBateuRecorde(Guid userId)
-        {
-            return _pontuacaoRepository.QuantidadeDeVezesBateuRecorde(userId);
+        {            
+            int record = _pontuacaoRepository.Record(userId);
+
+            var recordAtual = _pontuacaoRepository.RecordAtual(userId, record);
+
+            return _pontuacaoRepository.QuantidadeDeVezesBateuRecorde(userId, recordAtual);                
         }
 
         public IList<Pontuacao> List(Guid userId)
