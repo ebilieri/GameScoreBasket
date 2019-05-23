@@ -72,7 +72,7 @@ namespace GameScore.Services
 
             var recordAtual = _pontuacaoRepository.RecordAtual(userId, record);
 
-            return _pontuacaoRepository.QuantidadeDeVezesBateuRecorde(userId, recordAtual);                
+            return _pontuacaoRepository.QuantidadeDeVezesBateuRecorde(userId, recordAtual.QuantidadePontos);                
         }
 
         public IList<Pontuacao> List(Guid userId)

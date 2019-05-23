@@ -77,12 +77,12 @@ namespace GameScore.Repositories
             .Where(p => p.UserId == userId && p.QuantidadePontos > record).FirstOrDefault();
         }
 
-        public int QuantidadeDeVezesBateuRecorde(Guid userId, Pontuacao recordAtual)
+        public int QuantidadeDeVezesBateuRecorde(Guid userId, int recordAtual)
         {
             if (TotalDeJogosDisputados(userId) > 0)
             {
                 return _gameScoreDBContext.Pontuacao
-                .Where(p => p.UserId == userId && p.QuantidadePontos >= recordAtual.QuantidadePontos)
+                .Where(p => p.UserId == userId && p.QuantidadePontos >= recordAtual)
                 .OrderBy(p => p.DataJogo).OrderBy(p => p.QuantidadePontos)
                 .Select(p => p.QuantidadePontos).Distinct().ToList().Count();
             }

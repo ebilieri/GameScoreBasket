@@ -30,7 +30,7 @@ namespace WebApp.Controllers
                 var name = _userManager.GetUserName(HttpContext.User);
                 var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
             }
-            catch (Exception ex) { }      
+            catch (Exception) { }      
 
             return View();
         }

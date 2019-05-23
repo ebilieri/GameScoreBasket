@@ -13,7 +13,7 @@ namespace GameScore.Repositories
         Pontuacao PeriodoTemporadaFim(Guid userId);
         int Record(Guid userId);
         Pontuacao RecordAtual(Guid userId, int record);
-        int QuantidadeDeVezesBateuRecorde(Guid userId, Pontuacao recordAtual);
+        int QuantidadeDeVezesBateuRecorde(Guid userId, int recordAtual);
         void Salvar(Pontuacao pontuacao);
         int TotalDeJogosDisputados(Guid userId);
         int TotalDePontosMarcadosNaTemporado(Guid userId);
